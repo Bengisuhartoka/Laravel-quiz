@@ -14,7 +14,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        return "İndex Fonksiyonu";
+        return view('admin.quiz.list');
     }
 
     /**
