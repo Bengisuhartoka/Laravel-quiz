@@ -25,7 +25,8 @@ class QuizController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                   $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                   $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i class="fa fa-pen"></i></a>  ';
+                   $btn .= '<button data-rowid="'.$row->id.'" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>';
                    return $btn;
             })
             ->rawColumns(['action'])
@@ -42,7 +43,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return "Create Fonksitonu";
+        return view('admin.quiz.create');
     }
 
     /**
@@ -53,7 +54,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        return "Store Fonksiyonu";
+        return $request->post();
     }
 
     /**
