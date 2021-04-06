@@ -26,4 +26,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/panel', function () {
 Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function(){
 
     Route::resource('quizzes',QuizController::class);
+    // Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
 });

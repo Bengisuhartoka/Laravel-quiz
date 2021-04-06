@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Quiz;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DataTables;
 
 class QuizController extends Controller
 {
@@ -12,10 +13,27 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $data = Quiz::all();
+        // return datatables()->of($data)->toJson();
+      
+        if($request->ajax())
+        {
+            $data=Quiz::select('*');
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+
+                   $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                   return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        
         return view('admin.quiz.list');
-    }
+     }
 
     /**
      * Show the form for creating a new resource.
