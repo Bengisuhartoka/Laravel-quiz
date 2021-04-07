@@ -111,6 +111,8 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quiz = Quiz::find($id) ?? abort(404,'Quiz Bulunamadı');
+        $quiz->delete();
+        return redirect()->route('quizzes.index')->withSuccess('Quiz is Deleted');
     }
 }
