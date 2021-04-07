@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Quiz;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuizCreateRequest;
+use App\Http\Requests\QuizUpdateRequest;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -18,17 +19,15 @@ class QuizController extends Controller
     {
         // $data = Quiz::all();
         // return datatables()->of($data)->toJson();
-      
+        
         if($request->ajax())
         {
-            $data=Quiz::select('*');
+            $data=Quiz::all();
             return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
+                return view("admin.quiz.action",compact('row'));
 
-                   $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i class="fa fa-pen"></i></a>  ';
-                   $btn .= '<button data-rowid="'.$row->id.'" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>';
-                   return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -85,7 +84,8 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        //
+        $quiz=Quiz::find($id) ?? abort(404,'Not Found Quiz');
+        return view('admin.quiz.edit',compact('quiz'));
     }
 
     /**
@@ -95,9 +95,12 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizUpdateRequest $request, $id)
     {
-        //
+        $quiz=Quiz::find($id) ?? abort(404,'Quiz is not found');
+        Quiz::where('id',$id)->update($request->except(['_method','_token']));
+
+        return redirect()->route('quizzes.index')->withSuccess('Quiz Update!!');
     }
 
     /**

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">Quizler</x-slot>
-    <div class="container">
+
         <div class="card">
             <div class="card-body">
                 <h5 class="card-tittle"> 
@@ -23,7 +23,7 @@
                 </div>
             
             </div>
-        </div>
+    
 
 </x-app-layout>
 <script type="text/javascript">
