@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Quiz;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuizCreateRequest;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -52,9 +53,17 @@ class QuizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuizCreateRequest $request)
     {
-        return $request->post();
+        $data = new Quiz;
+        $data->tittle=$request->tittle;
+        $data->description=$request->description;
+        $data->finished_at=$request->finished_at;
+        $data->save();
+        
+        return redirect()->route('quizzes.index')->withSuccess('Quiz is created');
+
+        // return $request->post();
     }
 
     /**
