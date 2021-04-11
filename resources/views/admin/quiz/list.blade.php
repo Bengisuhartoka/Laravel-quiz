@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">Quizler</x-slot>
+    <x-slot name="header">Quizs</x-slot>
 
         <div class="card">
             <div class="card-body">

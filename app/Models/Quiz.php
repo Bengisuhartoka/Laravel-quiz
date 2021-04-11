@@ -11,4 +11,9 @@ class Quiz extends Model
     
     protected $table="quizzes";
     protected $fillable=["tittle","description","finished_at","status"];
+    
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\QuestionsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +29,6 @@ Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function
     Route::get('quizzes/{id}', [QuizController::class, 'destroy'])->whereNumber('id')->name('quizzes.destroy');
     Route::resource('quizzes',QuizController::class);
     // Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+
+    Route::get('quiz/{quiz_id}/questions', [QuestionsController::class, 'index'])->name('questions.index');
 });
