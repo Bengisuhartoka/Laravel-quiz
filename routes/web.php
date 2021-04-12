@@ -30,5 +30,5 @@ Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function
     Route::resource('quizzes',QuizController::class);
     // Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
 
-    Route::get('quiz/{quiz_id}/questions', [QuestionsController::class, 'index'])->name('questions.index');
+    Route::resource('quiz/{quiz_id}/questions', QuestionsController::class);
 });

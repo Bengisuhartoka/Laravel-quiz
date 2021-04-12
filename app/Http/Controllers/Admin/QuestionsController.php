@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use DataTables;
+use App\Http\Requests\QuestionCreateRequest;
+use Illuminate\Support\Str;
 class QuestionsController extends Controller
 {
     /**
@@ -18,10 +20,13 @@ class QuestionsController extends Controller
         $quiz_in=Quiz::whereId($id)->with('questions')->first();
         if($request->ajax())
         {
+            
             $quiz=Quiz::find($id)->questions;
             return Datatables::of($quiz)
             ->addIndexColumn()
             ->addColumn('action', function($row){
+                return view("admin.question.action",compact('row'));
+
 
             })
             ->rawColumns(['action'])
@@ -37,7 +42,8 @@ class QuestionsController extends Controller
      */
     public function create($quiz_id)
     {
-        return "create sayfası";
+        $quiz=Quiz::find($quiz_id);
+        return view('admin.question.create',compact('quiz'));
     }
 
     /**
@@ -46,9 +52,19 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(QuestionCreateRequest $request,$id)
+    { 
+        if($request->hasFile('image'))
+        {
+             $fileName=Str::slug($request->question).'.'.$request->image->extension();
+             $fileNamewithUpload='uploads/'.$fileName;
+             $request->image->move(public_path('uploads'),$fileName);
+             $request->merge([
+                 'image'=>$fileNamewithUpload
+             ]);
+        }
+      Quiz::find($id)->questions()->create($request->post());
+      return redirect()->route('questions.index',$id)->withSuccess('Question saved successfully');
     }
 
     /**
@@ -68,9 +84,10 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($quiz_id,$question_id)
     {
-        //
+        // $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first();
+        // return view('admin.question.edit',compact('question'));
     }
 
     /**

@@ -9,7 +9,7 @@ class Question extends Model
 {
     use HasFactory;
     protected $table="questions";
-    protected $fillable=["question","answer1","answer2","answer3","answer4","correct_answer"];
+    protected $fillable=["question","image","answer1","answer2","answer3","answer4","correct_answer"];
 
     
 }

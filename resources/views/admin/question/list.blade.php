@@ -3,12 +3,18 @@
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-tittle">Information on the {{$quiz_in->tittle}} quiz</h5>
+                <h5 class="card-tittle">
+                Information on the {{$quiz_in->tittle}} quiz
+                <br>
+                <br>
+                <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>
+                </h5>
 
                 <table class="table table-bordered data-table">
                     <thead>
                         <tr>
                             <th>question</th>
+                            <th>image</th>
                             <th>answer1</th>
                             <th>answer2</th>
                             <th>answer3</th>
@@ -36,6 +42,7 @@
         ajax: "{{ route('questions.index',$id) }}",
         columns: [
             {data: 'question', name: 'question'},
+            {data: 'image', name: 'image'},
             {data: 'answer1', name: 'answer1'},
             {data: 'answer2', name: 'answer2'},
             {data: 'answer3', name: 'answer3'},
