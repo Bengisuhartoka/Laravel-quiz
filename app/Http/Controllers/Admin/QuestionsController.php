@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use Illuminate\Support\Str;
 class QuestionsController extends Controller
 {
@@ -20,14 +21,11 @@ class QuestionsController extends Controller
         $quiz_in=Quiz::whereId($id)->with('questions')->first();
         if($request->ajax())
         {
-            
             $quiz=Quiz::find($id)->questions;
             return Datatables::of($quiz)
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 return view("admin.question.action",compact('row'));
-
-
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -86,8 +84,8 @@ class QuestionsController extends Controller
      */
     public function edit($quiz_id,$question_id)
     {
-        // $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first();
-        // return view('admin.question.edit',compact('question'));
+        $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first();
+        return view('admin.question.edit',compact('question'));
     }
 
     /**
@@ -97,9 +95,20 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $quiz_id,$question_id)    
     {
-        //
+        
+        if($request->hasFile('image'))
+        {
+             $fileName=Str::slug($request->question).'.'.$request->image->extension();
+             $fileNamewithUpload='uploads/'.$fileName;
+             $request->image->move(public_path('uploads'),$fileName);
+             $request->merge([
+                 'image'=>$fileNamewithUpload
+             ]);
+        }
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
+        return redirect()->route('questions.index',$quiz_id)->withSuccess('Question updated successfully');
     }
 
     /**
@@ -108,8 +117,9 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($quiz_id,$question_id)
     {
-        //
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
+        return redirect()->route('questions.index',$quiz_id)->withSuccess('Question Deleted Successfully');
     }
 }

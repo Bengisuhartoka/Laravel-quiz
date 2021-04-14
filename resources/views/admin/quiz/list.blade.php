@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th>tittle</th>
+                        <th>Question count</th>
                         <th>description</th>
                         <th>finished_at</th>
                         <th>status</th>
@@ -35,6 +36,7 @@
         ajax: "{{ route('quizzes.index') }}",
         columns: [
             {data: 'tittle', name: 'tittle'},
+            {data: 'count', name: 'count'},
             {data: 'description', name: 'description'},
             {data: 'finished_at', name: 'finished_at'},
             {data: 'status', name: 'status'},

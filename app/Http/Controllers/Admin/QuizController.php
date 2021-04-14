@@ -22,12 +22,15 @@ class QuizController extends Controller
         
         if($request->ajax())
         {
-            $data=Quiz::all();
+            $data=Quiz::withCount('questions')->get();
             return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 return view("admin.quiz.action",compact('row'));
 
+            })
+            ->addColumn('count', function($row){
+                return $row->questions_count;
             })
             ->rawColumns(['action'])
             ->make(true);
