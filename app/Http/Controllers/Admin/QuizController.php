@@ -32,6 +32,12 @@ class QuizController extends Controller
             ->addColumn('count', function($row){
                 return $row->questions_count;
             })
+            ->editColumn('finished_at',function($row){
+               $output=$row->finished_at ? $row->finished_at->diffForHumans() : "-";
+               return $output;
+  
+            })
+         
             ->rawColumns(['action'])
             ->make(true);
         }
@@ -87,7 +93,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz=Quiz::find($id) ?? abort(404,'Not Found Quiz');
+        $quiz=Quiz::withCount('questions')->find($id) ?? abort(404,'Not Found Quiz');
         return view('admin.quiz.edit',compact('quiz'));
     }
 

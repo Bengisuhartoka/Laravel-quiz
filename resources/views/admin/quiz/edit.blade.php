@@ -19,13 +19,24 @@
                 <textarea name="description" class="form-control" row="4">{{$quiz->description}}</textarea>
                 </div>
                 <div class="form-group">
+                    <label>Quiz Durumu</label>
+                    <select name="status" class="form-control">
+                      <option @if($quiz->questions_count<4) disabled @endif @if($quiz->status==='publish') selected @endif value="publish">Publish</option>
+                      <option @if($quiz->status==='draft') selected @endif value="draft">Draft</option>
+                      <option @if($quiz->status=='passive') selected @endif value="passive">Passive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <input  id="isFinished"  @if($quiz->finished_at) checked @endif type="checkbox"> 
                     <label>Will there be an end date?</label>
                 </div>
+
                 <div id="finishedInput"  @if(!$quiz->finished_at) style="display:none" @endif  class="form-group">
                     <label>Finished At</label>
                     <input type="datetime-local" name="finished_at" class="form-control" @if($quiz->finished_at) value="{{ date('Y-m-d\TH:i', strtotime($quiz->finished_at))}}"  @endif>
                 </div>
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-sm btn-block">Update Quiz</button>
                 </div>

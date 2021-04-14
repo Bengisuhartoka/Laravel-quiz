@@ -6,6 +6,7 @@
                 <h5 class="card-tittle"> 
                     <a href="{{route('quizzes.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Quiz</a>
                 </h5>
+              
 
                 <table class="table table-bordered data-table">
                 <thead>
@@ -39,7 +40,29 @@
             {data: 'count', name: 'count'},
             {data: 'description', name: 'description'},
             {data: 'finished_at', name: 'finished_at'},
-            {data: 'status', name: 'status'},
+            {
+                data: 'status',
+                name: 'status',
+                orderable: false,
+                earchable: false,
+                width : "10%",
+
+                render: function(data, type, row, meta) {
+                if(data==null){
+                    data='';
+                }
+                let output;
+                if(data == "publish"){
+                   output = "<br><span class='badge badge-success text-light',>" + data + "</span>"
+                }else if(data == "draft"){
+                    output = "<br><span class='badge badge-warning text-light',>" + data + "</span>";
+                }
+                else if(data == "passive"){
+                    output = "<br><span class='badge badge-danger text-light',>" + data + "</span>";
+                }
+                return output;
+                }
+    },
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

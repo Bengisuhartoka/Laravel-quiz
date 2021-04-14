@@ -3,12 +3,14 @@
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-tittle">
-                Information on the {{$quiz_in->tittle}} quiz
-                <br>
-                <br>
-                <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>
+                  Information on the {{$quiz_in->tittle}} quiz
+                  <h5 class="card-tittle float-right"> 
+                    <a href="{{route('quizzes.index')}}" class="btn btn-warning"><i class="fa fa-arrow-left"></i></a>
                 </h5>
+                <h5 class="card-tittle">
+                    <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>
+                </h5>
+                
 
                 <table class="table table-bordered data-table">
                     <thead>
