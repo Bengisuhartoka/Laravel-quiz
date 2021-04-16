@@ -32,10 +32,10 @@ class QuizController extends Controller
             ->addColumn('count', function($row){
                 return $row->questions_count;
             })
+            //difforHumans()->tarih formatındaki veriyi x gün sonra şekline getirmek için
             ->editColumn('finished_at',function($row){
                $output=$row->finished_at ? $row->finished_at->diffForHumans() : "-";
                return $output;
-  
             })
          
             ->rawColumns(['action'])
@@ -107,8 +107,8 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz=Quiz::find($id) ?? abort(404,'Quiz is not found');
-        Quiz::where('id',$id)->update($request->except(['_method','_token']));
-        return redirect()->route('quizzes.index')->withSuccess('Quiz Update!!');
+        Quiz::find($id)->update($request->except(['_method','_token']));
+        return redirect()->route('quizzes.index')->withSuccess('Quiz Updated!!');
     }
 
     /**

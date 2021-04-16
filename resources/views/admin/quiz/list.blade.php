@@ -7,7 +7,7 @@
                     <a href="{{route('quizzes.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Quiz</a>
                 </h5>
               
-
+              
                 <table class="table table-bordered data-table">
                 <thead>
                     <tr>
