@@ -2,7 +2,8 @@
     <x-slot name="header">{{$quiz->tittle}}</x-slot>
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="#">
+            <form method="POST" action="{{route('quiz.result',$quiz->slug)}}">
+            @csrf
                 @foreach($quiz->questions as $question)
                 <strong>#{{$loop->iteration}}  </strong>{{$question->question}}
                 @if($question->image)
@@ -38,7 +39,7 @@
             
 
                 @endforeach
-                <button type="submit" class="btn btn-success btn-sm">Finish Quiz</button>
+                <button type="submit" class="float-right btn btn-success btn-sm">Finish Quiz</button>
                 
             </form>
         </div>
