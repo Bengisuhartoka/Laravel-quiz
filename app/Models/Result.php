@@ -10,4 +10,8 @@ class Result extends Model
     use HasFactory;
     protected $table="results";
     protected $fillable=["user_id","quiz_id","point","correct","wrong"];
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

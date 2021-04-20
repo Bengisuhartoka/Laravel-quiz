@@ -15,14 +15,27 @@ class Quiz extends Model
     protected $fillable=["tittle","description","finished_at","status","slug"];
 
     protected $dates=['finished_at'];
-    protected $appends=['details'];
+    protected $appends=['details','my_rank'];
+
+    public function getMyRankAttribute(){
+        $rank=0;
+        foreach($this->result()->orderByDesc('point')->get() as $result)
+        {
+            $rank+=1;
+            if(auth()->user()->id==$result->user_id)
+            {
+                return $rank;
+            }
+
+        }
+    }
 
 
-
+ 
 
     public function getDetailsAttribute(){
 
-        if($this->result()->count()>0){ //hata
+        if($this->result()->count()>0){ 
         
             return [
             'average'=>round($this->result()->avg('point')),
@@ -47,6 +60,10 @@ class Quiz extends Model
     public function questions()
     {
         return $this->hasMany('App\Models\Question');
+    }
+
+    public function topten(){
+        return $this->result()->orderByDesc('point')->take(10);
     }
 
     public function sluggable(): array

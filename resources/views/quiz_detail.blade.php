@@ -6,6 +6,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <ul class="list-group">
+                            @if($quiz->my_rank)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">  
+                                    Ranking
+                                    <span class="badge badge-primary  badge-pill">{{$quiz->my_rank}}</span>
+                                </li>
+                            @endif
                             @if($quiz->my_result)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Point
@@ -29,7 +35,6 @@
                                 Question Count
                                 <span class="badge badge-secondary  badge-pill">{{$quiz->questions_count}}</span>
                             </li>
-                            {{-- hata --}}
                             @if($quiz->details)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Join Count
@@ -42,6 +47,29 @@
                             @endif
             
                         </ul>
+                        @if(count($quiz->topten)>0)
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-tittle">Top 10</h5>
+                                <ul class="list-group">
+                                   @foreach($quiz->topten as $result)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                        <strong class="h5">{{$loop->iteration}}</strong>
+                                        
+                                        <span @if(auth()->user()->id==$result->user_id) class="text-danger" @endif>{{$result->user->name}}</span>
+                                        <span class="badge badge-success  badge-pill">{{$result->point}}</span>
+                                        <img class="w-8 h-8 rounded-full" src="{{$result->user->profile_photo_url}}">
+                                    </li>
+                                    
+                                   @endforeach
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+
+
                     </div>
                     <div class="col-md-8">
                     {{$quiz->description}}
