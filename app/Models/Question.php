@@ -11,5 +11,10 @@ class Question extends Model
     protected $table="questions";
     protected $fillable=["question","image","answer1","answer2","answer3","answer4","correct_answer"];
 
+    public function my_answer()
+    {
+        return $this->hasOne('App\Models\Answer')->where('user_id',auth()->user()->id);
+    }
+
     
 }

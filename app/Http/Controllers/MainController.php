@@ -15,7 +15,11 @@ class MainController extends Controller
         return view('dashboard',compact('quizzes'));
     }
     public function quiz($slug){
-        $quiz=Quiz::whereSlug($slug)->with('questions')->first();
+        $quiz=Quiz::whereSlug($slug)->with('questions.my_answer')->first() ?? abort(404,'Quiz not found');
+        if($quiz->my_result){
+
+            return view('quiz_result',compact('quiz'));
+        }
         return view('quiz',compact('quiz'));
     }
     public function quiz_detail($slug){
