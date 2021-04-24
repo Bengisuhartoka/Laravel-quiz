@@ -97,16 +97,18 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, $quiz_id,$question_id)    
     {
-        
+        $data=Question::find($question_id);
         if($request->hasFile('image'))
         {
              $fileName=Str::slug($request->question).'.'.$request->image->extension();
              $fileNamewithUpload='uploads/'.$fileName;
              $request->image->move(public_path('uploads'),$fileName);
-             $request->merge([
-                 'image'=>$fileNamewithUpload
-             ]);
+             $data->image=$fileNamewithUpload;
+             $data->save();
+           
         }
+      
+
         Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
         return redirect()->route('questions.index',$quiz_id)->withSuccess('Question updated successfully');
     }

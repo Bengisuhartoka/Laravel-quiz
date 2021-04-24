@@ -6,17 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable; // Slug eklemek için
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Quiz extends Model
 {
     use HasFactory;
     use Sluggable;
+    use SoftDeletes;
     
     protected $table="quizzes";
     protected $fillable=["tittle","description","finished_at","status","slug"];
 
-    protected $dates=['finished_at'];
+    protected $dates=['finished_at','deleted_at'];
     protected $appends=['details','my_rank'];
 
+    //veri tabında olmayan column,sıralama hesaplandı Mutators (Mutation)
     public function getMyRankAttribute(){
         $rank=0;
         foreach($this->result()->orderByDesc('point')->get() as $result)
@@ -30,8 +33,6 @@ class Quiz extends Model
         }
     }
 
-
- 
 
     public function getDetailsAttribute(){
 

@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-body">
         
-        <form method="POST" action=" {{route('questions.update',[$question->quiz_id,$question->id])}} ">
+        <form method="POST" action=" {{route('questions.update',[$question->quiz_id,$question->id])}} " enctype="multipart/form-data">
         @method('PUT')
         @csrf
 

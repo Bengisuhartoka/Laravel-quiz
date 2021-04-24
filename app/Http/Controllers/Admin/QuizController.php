@@ -123,4 +123,26 @@ class QuizController extends Controller
         $quiz->delete();
         return redirect()->route('quizzes.index')->withSuccess('Quiz is Deleted');
     }
+
+      /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+       $trashed_data = Quiz::onlyTrashed()->get();
+       return view('admin.quiz.trash',compact('trashed_data'));
+    }
+    public function restore($id)
+    {
+        $data=Quiz::withTrashed()
+        ->where('id',$id)
+        ->restore();
+        return redirect()->back()->withSuccess('Quiz is Restore');
+     
+     
+
+    }
+
 }

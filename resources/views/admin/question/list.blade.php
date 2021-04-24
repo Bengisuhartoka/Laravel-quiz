@@ -3,14 +3,26 @@
 
         <div class="card">
             <div class="card-body">
-                  Information on the {{$quiz_in->tittle}} quiz
-                  <h5 class="card-tittle float-right"> 
-                    <a href="{{route('quizzes.index')}}" class="btn btn-warning"><i class="fa fa-arrow-left"></i></a>
-                </h5>
-                <h5 class="card-tittle">
-                    <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>
-                </h5>
-                
+                  <div class="row">
+                    <div class="col-md-6">
+                        Information on the {{$quiz_in->tittle}} quiz
+                    </div>
+                    <div class="col-md-6"> 
+                        <a href="{{route('quizzes.index')}}" class="btn btn-warning" style='float:right'><i class="fa fa-arrow-left"></i></a>
+                    </div>
+                 </div>
+                 <br>
+                 <br>
+
+                 <div class="row">
+                        <div class="col-md-6 float-left">
+                            <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>  
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-secondary"  style='float:right'><i class="fa fa-trash-restore" aria-hidden="true"></i></a>
+                        </div>
+                 </div>
+                <br>
 
                 <table class="table table-bordered data-table">
                     <thead>

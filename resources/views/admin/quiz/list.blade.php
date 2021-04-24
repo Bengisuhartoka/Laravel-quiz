@@ -3,11 +3,16 @@
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-tittle"> 
-                    <a href="{{route('quizzes.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Quiz</a>
-                </h5>
-              
-              
+            <div class="row">
+                    <div class="col-md-6 float-left">
+                        <a href="{{route('quizzes.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Quiz</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{route('quizzes.trashed')}}" class="btn btn-secondary"  style='float:right'><i class="fa fa-trash-restore" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <br>
+
                 <table class="table table-bordered data-table">
                 <thead>
                     <tr>
