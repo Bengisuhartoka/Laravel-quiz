@@ -19,7 +19,7 @@
                             <a href="{{route('questions.create',$id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</a>  
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-secondary"  style='float:right'><i class="fa fa-trash-restore" aria-hidden="true"></i></a>
+                            <a href="{{route('question.trashed')}}" class="btn btn-secondary"  style='float:right'><i class="fa fa-trash-restore" aria-hidden="true"></i></a>
                         </div>
                  </div>
                 <br>

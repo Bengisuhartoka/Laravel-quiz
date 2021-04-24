@@ -124,4 +124,20 @@ class QuestionsController extends Controller
         Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
         return redirect()->route('questions.index',$quiz_id)->withSuccess('Question Deleted Successfully');
     }
+
+    public function trashed()
+    {
+        $tarshed_data=Question::onlyTrashed()->get();
+        return view('admin.question.trash',compact('tarshed_data'));
+    }
+    public function restore($id)
+    {
+        $data=Question::withTrashed()
+        ->where('id',$id)
+        ->restore();
+        return redirect()->back()->withSuccess('Question is Restore');
+     
+     
+
+    }
 }

@@ -35,6 +35,10 @@ Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function
     Route::get('quiz/{quiz_id}/questions/{id}', [QuestionsController::class, 'destroy'])->whereNumber('id')->name('questions.destroy');
     Route::get('quizzes/trashed',[QuizController::class, 'trashed'])->name('quizzes.trashed');
     Route::get('quizzes/restore/{id}',[QuizController::class, 'restore'])->name('quizzes.restore');
+   
+    //bütün quizlerin silinen questionlarını alıyor
+    Route::get('question/trashed',[QuestionsController::class, 'trashed'])->name('question.trashed');
+    Route::get('question/restore/{id}',[QuestionsController::class, 'restore'])->name('question.restore');
     
 
     Route::resource('quizzes',QuizController::class);
