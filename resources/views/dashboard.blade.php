@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <h5>Denemeee</h5>
+                
             </div>
     </div>
 </x-app-layout>

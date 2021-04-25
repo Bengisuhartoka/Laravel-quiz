@@ -2,6 +2,7 @@
     <x-slot name="header">{{$quiz->tittle}}</x-slot>
     <div class="card">
         <div class="card-body">
+               <h3>Score:{{$quiz->my_result->point}}</h3>
                 <div class="alert alert-warning">
                     <i class="fa fa-check text-success">Correct Answer </i>
                     <i class="fa fa-times text-danger">Wrong Answer </i>

@@ -11,11 +11,15 @@ class MainController extends Controller
 {
     public function dashboard(){
         
-        $quizzes=Quiz::where('status','publish')->withCount('questions')->paginate(5);
+        $quizzes=Quiz::where('status','publish')->where(function($query)
+        {
+            $query->whereNull('finished_at')->orWhere('finished_at','>',now());
+
+        })->withCount('questions')->paginate(5);
         return view('dashboard',compact('quizzes'));
     }
     public function quiz($slug){
-        $quiz=Quiz::whereSlug($slug)->with('questions.my_answer')->first() ?? abort(404,'Quiz not found');
+        $quiz=Quiz::whereSlug($slug)->with('questions.my_answer','my_result')->first() ?? abort(404,'Quiz not found');
         if($quiz->my_result){
 
             return view('quiz_result',compact('quiz'));
