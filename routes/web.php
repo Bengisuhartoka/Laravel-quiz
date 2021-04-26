@@ -41,7 +41,8 @@ Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function
     //bütün quizlerin silinen questionlarını aynı yere alıyor!
     Route::get('question/trashed',[QuestionsController::class, 'trashed'])->name('question.trashed');
     Route::get('question/restore/{id}',[QuestionsController::class, 'restore'])->name('question.restore');
-    
+
+    Route::get('quizzes/{id}/informaiton',[QuizController::class, 'show'])->name('quizzes.info');
 
     Route::resource('quizzes',QuizController::class);
     // Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
