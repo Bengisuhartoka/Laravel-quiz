@@ -26,10 +26,12 @@
                 <ul class="list-group list-group-flush">
                 @foreach($user_result as $result)
                     <li class="list-group-item">
+                    @if(isset($result->quiz))
                     <strong>{{$result->point}}</strong>-
                     <a href="{{route('quiz.detail', $result->quiz->slug)}}">
                         {{optional($result->quiz)->tittle}}</li>
                     </a>
+                    @endif
                 @endforeach
                 </ul>
                 </div>
