@@ -16,7 +16,9 @@ class MainController extends Controller
             $query->whereNull('finished_at')->orWhere('finished_at','>',now());
 
         })->withCount('questions')->paginate(5);
-        return view('dashboard',compact('quizzes'));
+        $user_result= auth()->user()->results;
+        return view('dashboard',compact('quizzes','user_result'));
+       
     }
     public function quiz($slug){
         $quiz=Quiz::whereSlug($slug)->with('questions.my_answer','my_result')->first() ?? abort(404,'Quiz not found');

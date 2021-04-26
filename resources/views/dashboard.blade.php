@@ -19,7 +19,20 @@
                 </div>
             </div>
             <div class="col-md-4">
-                
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                My Quiz Result
+                </div>
+                <ul class="list-group list-group-flush">
+                @foreach($user_result as $result)
+                    <li class="list-group-item">
+                    <strong>{{$result->point}}</strong>-
+                    <a href="{{route('quiz.detail', $result->quiz->slug)}}">
+                        {{optional($result->quiz)->tittle}}</li>
+                    </a>
+                @endforeach
+                </ul>
+                </div>
             </div>
     </div>
 </x-app-layout>

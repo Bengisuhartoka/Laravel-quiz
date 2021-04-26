@@ -33,10 +33,12 @@ Route::group(['middleware' => ['auth' ,'isAdmin'], 'prefix'=>'admin',] ,function
     
     Route::get('quizzes/{id}', [QuizController::class, 'destroy'])->whereNumber('id')->name('quizzes.destroy');
     Route::get('quiz/{quiz_id}/questions/{id}', [QuestionsController::class, 'destroy'])->whereNumber('id')->name('questions.destroy');
+
+    //silenen quizin bütün bilgilerini silmiyor,sonuç vs kalıyor!
     Route::get('quizzes/trashed',[QuizController::class, 'trashed'])->name('quizzes.trashed');
     Route::get('quizzes/restore/{id}',[QuizController::class, 'restore'])->name('quizzes.restore');
    
-    //bütün quizlerin silinen questionlarını alıyor
+    //bütün quizlerin silinen questionlarını aynı yere alıyor!
     Route::get('question/trashed',[QuestionsController::class, 'trashed'])->name('question.trashed');
     Route::get('question/restore/{id}',[QuestionsController::class, 'restore'])->name('question.restore');
     

@@ -16,11 +16,11 @@
                 <table class="table table-bordered data-table">
                 <thead>
                     <tr>
-                        <th>tittle</th>
+                        <th>Tittle</th>
                         <th>Question count</th>
-                        <th>description</th>
-                        <th>finished_at</th>
-                        <th>status</th>
+                        <th>Description</th>
+                        <th>Finished At</th>
+                        <th>Status</th>
                         <th width="100px">Action</th>
                     </tr>
                 </thead>
