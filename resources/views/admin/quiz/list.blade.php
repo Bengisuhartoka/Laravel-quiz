@@ -39,6 +39,7 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         ajax: "{{ route('quizzes.index') }}",
         columns: [
             {data: 'tittle', name: 'tittle'},
