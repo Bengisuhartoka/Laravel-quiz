@@ -28,7 +28,6 @@
                     <thead>
                         <tr>
                             <th>question</th>
-                            <th>image</th>
                             <th>answer1</th>
                             <th>answer2</th>
                             <th>answer3</th>
@@ -57,7 +56,6 @@
         ajax: "{{ route('questions.index',$id) }}",
         columns: [
             {data: 'question', name: 'question'},
-            {data: 'image', name: 'image'},
             {data: 'answer1', name: 'answer1'},
             {data: 'answer2', name: 'answer2'},
             {data: 'answer3', name: 'answer3'},
